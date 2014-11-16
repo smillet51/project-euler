@@ -15,11 +15,12 @@ def is_odd(num):
 
 def is_reversible(num):
     """ Check if a number is reversible given the above definition. """
+
+    if num % 10 == 0:
+        return False
+
     num_str = str(num)
     rev_str = "".join(reversed(num_str))
-
-    if int(rev_str[0]) == 0:
-        return False
 
     total = num + int(rev_str)
 
