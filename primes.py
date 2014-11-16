@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+""" Tools for checking and generating prime numbers. """
+
 import math
 
 def is_prime(num):
@@ -7,9 +9,11 @@ def is_prime(num):
     if num < 2:
         return False
 
-    sqrt = math.sqrt(num)
+    # take advantage of the speedup gained by only checking the sqrt
+    sqrt = int(math.sqrt(num))
 
-    for i in xrange(2, num):
+    # use xrange to generate the list as we iterate
+    for i in xrange(2, sqrt):
         if num % i == 0:
             return False
 
