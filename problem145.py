@@ -15,25 +15,33 @@
 """
 
 import time
-from reversible import is_reversible
 
-
-def problem145(max=1000):
+def problem145(exponent):
     count = 0
-    
-    for number in xrange(1, max):
-        if is_reversible(number):
-            count += 1
+
+    # h/t to http://www.mathblog.dk/project-euler-145-how-many-reversible-numbers-are-there-below-one-billion/
+    # for the insight into how to break down the problem more effectively
+    # there is some duplication with 0 and 2 having the same function but i prefer the compactness of the
+    # lambda expressions to having distinct functions defined for the 3 cases.
+    digit_table = {0: lambda x: 20 * 30 ** (x / 2 - 1),
+                   1: lambda x: 0,
+                   2: lambda x: 20 * 30 ** (x / 2 - 1),
+                   3: lambda x: 100 * 500 ** (x / 3 - 1)}
+
+    # generate the range of exponents to check
+    for i in xrange(1, exponent + 1):
+        count += digit_table[i % 4](i)
 
     return count
 
+
 if __name__ == "__main__":
     start = time.time()
-    count =  problem145()
+    count =  problem145(3)
     end = time.time()
     print "found %s reversible numbers under 1000 in %f seconds" % (count, end - start) 
 
     start = time.time()
-    count =  problem145(max=10 ** 9)
+    count =  problem145(9)
     end = time.time()
-    print "found %s reversible numbers under 1000 in %f seconds" % (count, end - start) 
+    print "found %s reversible numbers under 1 billion in %f seconds" % (count, end - start)
