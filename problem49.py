@@ -27,7 +27,7 @@ def check_perms(first, second, third):
 
     if one == two and two == three and three == one:
         print "%s - %s - %s" % (first, second, third)
-        print "%s%s%s" % (first, second, third)
+
     
 def problem_forty_nine():
     increase = 3330
@@ -42,4 +42,8 @@ def problem_forty_nine():
                 check_perms(num, second, third)
 
 if __name__ == "__main__":
+    start = time.time()
     problem_forty_nine()
+    end = time.time()
+
+    print "Generating the solution took %f seconds" % (end - start)
