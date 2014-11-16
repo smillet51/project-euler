@@ -16,9 +16,12 @@ def is_odd(num):
 def is_reversible(num):
     """ Check if a number is reversible given the above definition. """
     num_str = str(num)
-    rev_num = int("".join(reversed(num_str)))
+    rev_str = "".join(reversed(num_str))
 
-    total = num + rev_num
+    if int(rev_str[0]) == 0:
+        return False
+
+    total = num + int(rev_str)
 
     for digit in str(total):
         if not is_odd(int(digit)):
@@ -40,4 +43,6 @@ if __name__ == "__main__":
     assert is_reversible(409), "409 should be reversible"
     assert is_reversible(904), "904 should be reversible"
         
+    assert not is_reversible(10), "10 should not be reversible. (leading zero.)"
+
     print "all assertions passed"
