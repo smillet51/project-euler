@@ -20,6 +20,28 @@ def is_prime(num):
             return False
 
     return True
+
+def is_circular_prime(num):
+    """ Check if a number is a circular prime. """
+
+    # check the single digit circular primes
+    if num in [2, 3, 5, 7]:
+        return True
+
+    num_str = str(num)
+
+    # bail early if it is divisible by 2 or 5
+    if num % 2 == 0 or num % 5 == 5:
+        return False
+
+    # check tif the rotations are prime
+    for digit in num_str:
+        front = num_str[0]
+        num_str = num_str[1:] + front
+        if not is_prime(int(num_str)):
+            return False
+
+    return True
     
 def generate_list_of_primes(min, max):
     """ Given a min and max generate all the primes in that range. """
@@ -45,6 +67,22 @@ if __name__ == "__main__":
     assert is_prime(1487), "1487 should be prime"
     assert is_prime(4817), "4817 should be prime"
     assert is_prime(8147), "8147 should be prime"
+
+    # check some circular primes
+    assert is_circular_prime(197), "197 should be circular"
+    assert is_circular_prime(2), "2 should be circular"
+    assert is_circular_prime(3), "3 should be circular"
+    assert is_circular_prime(5), "5 should be circular"
+    assert is_circular_prime(7), "7 should be circular"
+    assert is_circular_prime(11), "11 should be circular"
+    assert is_circular_prime(13), "13 should be circular"
+    assert is_circular_prime(17), "17 should be circular"
+    assert is_circular_prime(31), "31 should be circular"
+    assert is_circular_prime(37), "37 should be circular"
+    assert is_circular_prime(71), "71 should be circular"
+    assert is_circular_prime(73), "73 should be circular"
+    assert is_circular_prime(79), "79 should be circular"
+    assert is_circular_prime(97), "97 should be circular"
 
     for num in generate_list_of_primes(1, 100):
         assert is_prime(num), "%s should be prime" % num
